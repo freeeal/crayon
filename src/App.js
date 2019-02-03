@@ -1,26 +1,17 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import logo from './logo.svg'
-import './App.css'
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import { Home, Play } from './components'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Play the Happy Numbers game!
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Router>
+          <div>
+            <Route exact path="/" component={Home} />
+            <Route path="/play" component={Play} />
+          </div>
+        </Router>
       </div>
     )
   }
