@@ -14,6 +14,7 @@ export class Play extends Component {
     state = {
         numCorrect: 0,
         numIncorrect: 0,
+        score: 100, // highest score default
         val1: '',
         val2: '',
         val3: '',
@@ -74,10 +75,8 @@ export class Play extends Component {
             <div>
                 <Alert variant="success">
                     <Alert.Heading>Welcome to the Happy Number Game!</Alert.Heading>
-                </Alert>
-                <Alert dismissible variant="info">
                     <p>
-                        Enter three numbers to get started.
+                        Enter three numbers, then press "Submit" to play.
                     </p>
                 </Alert>
                 <input 
