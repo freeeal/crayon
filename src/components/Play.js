@@ -12,38 +12,46 @@ const computeFactorial = (x) => {
 
 export class Play extends Component {
     state = {
-        numCorrect: 0,
-        numIncorrect: 0,
-        score: 100, // highest score default
+        score: 1000,
         val1: '',
         val2: '',
         val3: '',
         currentMood: false, // false is unhappy
         showAnswer: false,
         answer: null,
+        submissionInvalid: false,
+        showUnhappyWarning: false,
     }
 
     submit = () => {
-        console.log('submitted')
         const A = this.state.val1
         const B = this.state.val2
         const C = this.state.val3
         if (A <= 0 || B < 0 || C < 0) {
             console.log('submission not valid')
-        }
-
-        console.log('here is number', "" + (computeFactorial(A) + computeFactorial(B) + computeFactorial(C)))
-
-        if ("" + A + B + C === "" + (computeFactorial(A) + computeFactorial(B) + computeFactorial(C))) {
-            this.setState({ numCorrect: this.state.numCorrect + 1 })
+            this.setState({
+                submissionInvalid: true
+            })
         } else {
-            this.setState({ numIncorrect: this.state.numIncorrect + 1})
+            // first reset submission invalid b/c new submission is valid
+            this.setState({
+                submissionInvalid: false,
+            })
+            if ("" + A + B + C === "" + (computeFactorial(A) + computeFactorial(B) + computeFactorial(C))) {
+                this.setState({ 
+                    currentMood: true // set mood to happy, gave is over
+                })
+            } else {
+                this.setState({ 
+                    score: this.state.score - 10,
+                    showUnhappyWarning: true,
+                })
+            }
         }
-        
     }
 
     giveUp = () => {
-        // ABC = A! + B! + C! where A > 0, B >= 0, C >= 0
+        // find what value satisfies ABC = A! + B! + C! where A > 0, B >= 0, C >= 0
         const aArr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         const bArr = [0, 1 , 2, 3, 4, 5, 6, 7, 8, 9]
         const cArr = [0, 1 , 2, 3, 4, 5, 6, 7, 8, 9]
@@ -63,10 +71,26 @@ export class Play extends Component {
         }
     }
 
+    playAgain = () => {
+        window.location.reload(true)
+    }
+
     handleChange(event) {
         const valName = 'val' + event.target.id
         this.setState({
             [valName]: event.target.value
+        })
+    }
+
+    handleNumberUnhappyWarningClose = () => {
+        this.setState({
+            showUnhappyWarning: false
+        })
+    }
+
+    handleSubmissionInvalidWarningClose = () => {
+        this.setState({
+            submissionInvalid: false
         })
     }
 
@@ -100,42 +124,85 @@ export class Play extends Component {
                     onChange={this.handleChange.bind(this)}
                     value={this.state.val3}
                 />
-                <br />
-                <br />
-                <Button 
-                    variant="primary"
-                    onClick={this.submit}
-                    id="submit-button"
-                >
-                    Submit
-                </Button>
-                <br />
-                <br />
-                {!this.state.currentMood && <Alert dismissible variant="danger">
-                    <p>
-                        Those numbers are unhappy!
-                    </p>
-                </Alert>}
-                {this.state.currentMood && <Alert dismissible variant="success">
-                    <p>
-                        Those numbers are happy!
-                    </p>
-                </Alert>}
-                {!this.state.showAnswer && <Button 
-                    variant="primary"
-                    onClick={this.giveUp}
-                >
-                    I give up...
-                </Button>}
-                <br />
-                <br />
-                <div>
-                    <h5>Number Correct: {this.state.numCorrect}</h5>
-                    <h5>Number Incorrect: {this.state.numIncorrect}</h5>
+                {!this.state.showAnswer && !this.state.currentMood && <div>
+                    <br />
+                    <Button 
+                        variant="primary"
+                        onClick={this.submit}
+                        id="submit-button"
+                    >
+                        Submit
+                    </Button>
+                    <br />
+                    <br />
                 </div>
-                {this.state.showAnswer && 
+            }
+                {this.state.showUnhappyWarning && 
+                    <Alert 
+                        dismissible
+                        variant="danger"
+                        onClose={this.handleNumberUnhappyWarningClose}
+                    >
+                        <p>
+                            Those numbers are unhappy. Try again!
+                        </p>
+                    </Alert>
+                }
+                {this.state.submissionInvalid && 
+                    <Alert 
+                        dismissible
+                        variant="danger"
+                        onClose={this.handleSubmissionInvalidWarningClose}
+                    >
+                        <p>
+                            Your number is invalid. Try again!
+                        </p>
+                    </Alert>
+                }
+                {this.state.currentMood && 
                     <div>
-                        <h5>Happy Answer: {this.state.answer}</h5>
+                        <br />
+                        <Alert variant="success">
+                            <p>
+                                Those numbers are happy! Game is over.
+                            </p>
+                        </Alert>
+                    </div>
+                }
+                {(!this.state.showAnswer && !this.state.currentMood) && 
+                    <div>
+                        <Button 
+                            variant="primary"
+                            onClick={this.giveUp}
+                        >
+                            I give up...
+                        </Button>
+                        <br />
+                        <br />
+                    </div>
+                }
+                {!this.state.showAnswer && !this.state.currentMood &&
+                    <div>
+                        <h5>Your Score: {this.state.score}</h5>
+                    </div>
+                }
+                {(this.state.showAnswer || this.state.currentMood) && 
+                    <div>
+                        {this.state.showAnswer &&
+                            <div>
+                                <br />
+                                <h5>The Happy Answer is {this.state.answer}.</h5>
+                            </div>
+                        }
+                        <h5>Your Final Score: {this.state.score}</h5>
+                        <p>
+                        <Button 
+                            variant="primary"
+                            onClick={this.playAgain}
+                        >
+                            Play Again!
+                        </Button>
+                     </p> 
                     </div>
                 }
             </div>

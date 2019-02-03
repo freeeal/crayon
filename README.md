@@ -1,9 +1,7 @@
+# crayon challenge - Happy Numbers Game
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# crayon challenge 
-Happy Numbers Game
-
-## Getting stared
+## Getting started
 
 Clone this repository from Github to your local machine.
 ```bash
@@ -15,7 +13,7 @@ git clone https://github.com/freeeal/crayon.git
 yarn install
 ```
 
-## Running
+### Running
 ```
 yarn start
 ```
