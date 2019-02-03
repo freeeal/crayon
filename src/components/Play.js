@@ -62,7 +62,8 @@ export class Play extends Component {
                     if ("" + a + b + c === "" + (computeFactorial(a) + computeFactorial(b) + computeFactorial(c))) {
                         this.setState({ 
                             showAnswer: true,
-                            answer: "" + a + b + c 
+                            answer: "" + a + b + c, 
+                            showUnhappyWarning: false,
                         }) 
                         break
                     }
@@ -172,7 +173,7 @@ export class Play extends Component {
                 {(!this.state.showAnswer && !this.state.currentMood) && 
                     <div>
                         <Button 
-                            variant="primary"
+                            variant="secondary"
                             onClick={this.giveUp}
                         >
                             I give up...
