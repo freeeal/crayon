@@ -1,0 +1,31 @@
+=============================================
+front end coding challenge
+=============================================
+
+
+Here's the Crayon front-end coding & UI/UX Exercise!! Feel free to use whatever tools and languages you prefer. When you're done, send it back over to us. Please send us the source code or share it from GitHub so that it's easy to test. Some people include a short readme if any setup is required.
+
+1. With this exercise, you are creating the "Happy Number Game", which is a game where users try to guess a "happy" combination of 3 numbers, and they get a score based on how quickly they can guess a "happy" combination (the right answer).
+
+2. The test for whether 3 numbers are "happy" is:
+
+For inputs A, B and C, the numbers are "happy" if this statement is true:
+
+ABC = A! + B! + C! where A > 0, B >= 0, C >= 0
+
+Notes:
+- ABC is NOT A*B*C. Rather, A, B, and C are digits that make up the number ABC
+- In math, the factorial of a non-negative integer n, denoted by n!, is the product of all positive integers less than or equal to n. For example: 5! = 5 x 4 x 3 x 2 x 1 = 120.
+- 1! = 1 and 0! = 1.
+- Write your own functions. Don't use a built-in factorial function. And don’t copy one from Stack Overflow tempting as that might be :)
+
+3. The game should allow the user to input three numbers and click a submit button
+
+4. When the 3 numbers are submitted, your code should:
+- Report to the user whether the numbers she guessed are "happy" or not
+- Report to the user her running score in the game. You can score it any way you want. A perfect score would be if you guess the right answer on your first guess. A crappy score would be if it takes you a long time or a lot of guesses to guess the right answer.
+- If the user guesses a "happy" combo of numbers, let her know, give her the final score, and end the game.
+
+5. In fact, there is only 1 combination of A, B and C that is "happy". You should include an "i give up" button (or similar) somewhere in the design that finds the right answer, tells the user the answer, and ends the game. This button should run code that actually figures out the answer to which 3 numbers are "happy".
+
+6. If you're into UI/UX, which you probably are since you're doing this exercise, try to make the game responsive so it works well on mobile devices, and try to make the interactions and UX experience as smooth and delightful as you can.
