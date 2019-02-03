@@ -38,10 +38,10 @@
 }
 
 input {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
-  font-size: 30px;
+  font-size: 40px;
 }

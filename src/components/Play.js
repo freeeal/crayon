@@ -18,6 +18,8 @@ export class Play extends Component {
         val2: '',
         val3: '',
         currentMood: false, // false is unhappy
+        showAnswer: false,
+        answer: null,
     }
 
     submit = () => {
@@ -41,13 +43,23 @@ export class Play extends Component {
 
     giveUp = () => {
         // ABC = A! + B! + C! where A > 0, B >= 0, C >= 0
-        const answer = null
-        // while ("" + A + B + C !== "" + (computeFactorial(A) + computeFactorial(B) + computeFactorial(C))) {
-        // iterate through all combos
-        // }
+        const aArr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        const bArr = [0, 1 , 2, 3, 4, 5, 6, 7, 8, 9]
+        const cArr = [0, 1 , 2, 3, 4, 5, 6, 7, 8, 9]
 
-        console.log('correct answer is 145')
-        return answer
+        for (let a in aArr) {
+            for (let b in bArr) {
+                for (let c in cArr) {
+                    if ("" + a + b + c === "" + (computeFactorial(a) + computeFactorial(b) + computeFactorial(c))) {
+                        this.setState({ 
+                            showAnswer: true,
+                            answer: "" + a + b + c 
+                        }) 
+                        break
+                    }
+                }
+            }
+        }
     }
 
     handleChange(event) {
@@ -100,26 +112,33 @@ export class Play extends Component {
                 </Button>
                 <br />
                 <br />
-                {!this.currentMood && <Alert dismissible variant="danger">
+                {!this.state.currentMood && <Alert dismissible variant="danger">
                     <p>
                         Those numbers are unhappy!
                     </p>
                 </Alert>}
-                {this.currentMood && <Alert dismissible variant="success">
+                {this.state.currentMood && <Alert dismissible variant="success">
                     <p>
                         Those numbers are happy!
                     </p>
                 </Alert>}
-                <div>
-                    <h5>Number Correct: {this.state.numCorrect}</h5>
-                    <h5>Number Incorrect: {this.state.numIncorrect}</h5>
-                </div>
-                {/* <Button 
+                {!this.state.showAnswer && <Button 
                     variant="primary"
                     onClick={this.giveUp}
                 >
                     I give up...
-                </Button> */}
+                </Button>}
+                <br />
+                <br />
+                <div>
+                    <h5>Number Correct: {this.state.numCorrect}</h5>
+                    <h5>Number Incorrect: {this.state.numIncorrect}</h5>
+                </div>
+                {this.state.showAnswer && 
+                    <div>
+                        <h5>Happy Answer: {this.state.answer}</h5>
+                    </div>
+                }
             </div>
         )
     }
