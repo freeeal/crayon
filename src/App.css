@@ -20,7 +20,7 @@
 
 .Home-link {
   color: #000;
-  text-decoration: none;
+  /* text-decoration: none; */
 }
 
 /* .Home-link a:hover {
@@ -35,4 +35,13 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+input {
+  width: 60px;
+  height: 60px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 30px;
 }

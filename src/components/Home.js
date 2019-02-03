@@ -12,7 +12,7 @@ export class Home extends Component {
                 <img src={logo} className="Home-logo" alt="logo" />
                 <p>
                     <Link to="/play" className="Home-link">
-                        Play Happy Numbers!
+                        Play the Happy Number Game!
                     </Link>
                 </p>
                 </header>
